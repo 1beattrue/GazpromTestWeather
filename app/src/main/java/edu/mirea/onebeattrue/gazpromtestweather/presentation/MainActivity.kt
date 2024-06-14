@@ -12,12 +12,24 @@ import androidx.compose.ui.Modifier
 import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.GazpromTestWeatherTheme
 
 class MainActivity : ComponentActivity() {
+
+//    @Inject
+//    lateinit var rootComponentFactory: DefaultRootComponent.Factory
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as WeatherApplication).component.inject(this)
         super.onCreate(savedInstanceState)
+
+//        val component = rootComponentFactory.create(defaultComponentContext())
+
         enableEdgeToEdge()
         setContent {
             GazpromTestWeatherTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    RootContent(
+//                        modifier = Modifier.padding(innerPadding),
+//                        component = component
+//                    )
                     Text(
                         modifier = Modifier.padding(innerPadding),
                         text = "Hello world!"

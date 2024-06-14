@@ -13,20 +13,10 @@ interface WeatherApiService {
         @Query("lon") lon: Float
     ): WeatherDto
 
-    @GET("/data/2.5/weather")
-    suspend fun getWeather(
-        @Query("q") city: String
-    ): WeatherDto
-
     @GET("/data/2.5/forecast")
     suspend fun getForecast(
         @Query("lat") lat: Float,
         @Query("lon") lon: Float
-    ): ForecastDto
-
-    @GET("/data/2.5/forecast")
-    suspend fun getForecast(
-        @Query("q") city: String
     ): ForecastDto
 
 }

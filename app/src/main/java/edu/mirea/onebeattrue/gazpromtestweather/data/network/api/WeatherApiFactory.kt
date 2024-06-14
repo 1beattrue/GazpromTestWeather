@@ -8,7 +8,7 @@ import retrofit2.create
 import java.util.Locale
 
 object WeatherApiFactory {
-    private const val BASE_URL = "https://api.openweathermap.org"
+    const val BASE_URL = "https://api.openweathermap.org"
 
     private const val KEY_PARAM = "appid"
     private const val LANG_PARAM = "lang"
