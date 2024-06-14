@@ -6,7 +6,7 @@ import edu.mirea.onebeattrue.gazpromtestweather.data.network.dto.WeatherDto
 import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.Forecast
 import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.Weather
 
-fun WeatherDto.toEntity() = Weather(
+fun WeatherDto.toEntity(): Weather = Weather(
     date = date,
     title = details.first().title,
     description = details.first().description,
@@ -14,6 +14,6 @@ fun WeatherDto.toEntity() = Weather(
     temp = main.temp
 )
 
-fun ForecastDto.toEntity() = Forecast(
+fun ForecastDto.toEntity(): Forecast = Forecast(
     upcoming = weatherList.map { it.toEntity() }
 )

@@ -7,13 +7,13 @@ import retrofit2.http.Query
 
 interface WeatherApiService {
 
-    @GET("/data/2.5/weather")
+    @GET("data/2.5/weather")
     suspend fun getWeather(
         @Query("lat") lat: Float,
         @Query("lon") lon: Float
     ): WeatherDto
 
-    @GET("/data/2.5/forecast")
+    @GET("data/2.5/forecast")
     suspend fun getForecast(
         @Query("lat") lat: Float,
         @Query("lon") lon: Float

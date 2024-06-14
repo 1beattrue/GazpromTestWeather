@@ -4,6 +4,6 @@ import edu.mirea.onebeattrue.gazpromtestweather.data.network.dto.CityDto
 import retrofit2.http.GET
 
 interface CityApiService {
-    @GET
+    @GET("cities.json")
     suspend fun getCities(): List<CityDto>
 }
