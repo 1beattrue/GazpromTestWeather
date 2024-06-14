@@ -32,3 +32,32 @@ val Typography = Typography(
     )
     */
 )
+
+val stickyHeaders = TextStyle(
+    fontWeight = FontWeight.Medium,
+    fontSize = 24.sp
+)
+
+val button = TextStyle(
+    fontWeight = FontWeight.Medium,
+    fontSize = 14.sp,
+    lineHeight = 20.sp
+)
+
+val error = TextStyle(
+    fontWeight = FontWeight.Medium,
+    fontSize = 14.sp,
+    lineHeight = 20.sp
+)
+
+val title = TextStyle(
+    fontWeight = FontWeight.Normal,
+    fontSize = 57.sp,
+    lineHeight = 64.sp,
+)
+
+val subtitle = TextStyle(
+    fontWeight = FontWeight.Normal,
+    fontSize = 32.sp,
+    lineHeight = 40.sp,
+)

@@ -11,5 +11,7 @@ class CityRepositoryImpl @Inject constructor(
 ) : CityRepository {
     override suspend fun getCities(): List<City> {
         return cityApiService.getCities().toEntities()
+            .filter { it.name.isNotEmpty() }
+            .sortedBy { it.name }
     }
 }
