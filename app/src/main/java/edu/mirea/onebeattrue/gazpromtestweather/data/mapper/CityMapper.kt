@@ -5,8 +5,8 @@ import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.City
 
 
 fun CityDto.toEntity() = City(
-    id = id,
+    id = id.toLong(),
     name = name,
-    lat = lat,
-    lon = lon
+    lat = lat.toFloat(),
+    lon = lon.toFloat()
 )

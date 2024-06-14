@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class City(
-    val id: String,
+    val id: Long,
     val name: String,
-    val lat: String,
-    val lon: String
+    val lat: Float,
+    val lon: Float
 )
