@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
 import edu.mirea.onebeattrue.gazpromtestweather.presentation.root.DefaultRootComponent
@@ -29,10 +30,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             GazpromTestWeatherTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    RootContent(
-                        modifier = Modifier.padding(innerPadding),
-                        component = component
-                    )
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    ) {
+                        RootContent(component = component)
+                    }
                 }
             }
         }

@@ -1,6 +1,9 @@
 package edu.mirea.onebeattrue.gazpromtestweather.presentation.cities
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.City
+import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.stickyHeader
 
 @Composable
 fun CityContent(
@@ -34,29 +39,19 @@ fun CityContent(
         CityStore.State.ScreenState.Error -> {
 
         }
+
         CityStore.State.ScreenState.Initial -> {
 
         }
+
         is CityStore.State.ScreenState.Loaded -> {
-            LazyColumn(
+            CategorizedLazyColumn(
                 modifier = modifier.fillMaxSize(),
-                contentPadding = PaddingValues(
-                    start = 16.dp,
-                    top = 8.dp,
-                    bottom = 8.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                items(
-                    items = screenState.cities,
-                    key = { it.id }
-                ) { city: City ->
-                    CityCard(city = city) {
-                        component.onCityItemClick(it)
-                    }
+                categories = screenState.cities,
+                onClickCity = { city ->
+                    component.onCityItemClick(city)
                 }
-            }
+            )
         }
 
         CityStore.State.ScreenState.Loading -> {
@@ -66,7 +61,7 @@ fun CityContent(
 }
 
 @Composable
-fun CityCard(
+private fun CityCard(
     modifier: Modifier = Modifier,
     city: City,
     onClickCity: (City) -> Unit
@@ -95,5 +90,60 @@ fun CityCard(
             overflow = TextOverflow.Ellipsis,
             maxLines = 1
         )
+    }
+}
+
+@Composable
+private fun Header(
+    modifier: Modifier = Modifier,
+    text: String
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface)
+    ) {
+        Text(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            text = text,
+            style = stickyHeader,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        HorizontalDivider()
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun CategorizedLazyColumn(
+    modifier: Modifier = Modifier,
+    categories: List<Category>,
+    onClickCity: (City) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(
+            bottom = 32.dp
+        ),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        categories.forEach { category ->
+            stickyHeader {
+                Header(text = category.name)
+            }
+
+            items(
+                items = category.items,
+                key = { it.id }
+            ) { city: City ->
+                CityCard(city = city) {
+                    onClickCity(it)
+                }
+            }
+        }
     }
 }

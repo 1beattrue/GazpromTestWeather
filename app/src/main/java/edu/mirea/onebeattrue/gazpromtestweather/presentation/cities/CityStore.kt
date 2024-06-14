@@ -31,7 +31,7 @@ interface CityStore : Store<Intent, State, Label> {
             data object Loading : ScreenState
             data object Error : ScreenState
             data class Loaded(
-                val cities: List<City>
+                val cities: List<Category>
             ) : ScreenState
         }
     }
@@ -62,7 +62,7 @@ class CityStoreFactory @Inject constructor(
     }
 
     private sealed interface Msg {
-        data class CitiesLoaded(val cities: List<City>) : Msg
+        data class CitiesLoaded(val cities: List<Category>) : Msg
         data object Loading : Msg
         data object LoadingError : Msg
     }
@@ -98,6 +98,7 @@ class CityStoreFactory @Inject constructor(
                         dispatch(Msg.Loading)
                         try {
                             val cities = withContext(Dispatchers.IO) { getCitiesUseCase() }
+                                .toMapWithHeaders()
                             dispatch(Msg.CitiesLoaded(cities))
                         } catch (e: Exception) {
                             e.printStackTrace()
@@ -111,7 +112,8 @@ class CityStoreFactory @Inject constructor(
         override fun executeAction(action: Action) {
             when (action) {
                 is Action.CitiesLoaded -> {
-                    dispatch(Msg.CitiesLoaded(action.cities))
+                    val cities = action.cities.toMapWithHeaders()
+                    dispatch(Msg.CitiesLoaded(cities))
                 }
 
                 Action.Loading -> {
@@ -134,7 +136,21 @@ class CityStoreFactory @Inject constructor(
             }
     }
 
+    private fun List<City>.toMapWithHeaders(): List<Category> {
+        return groupBy { it.name.first() }.toSortedMap().map { category ->
+            Category(
+                name = category.key.toString(),
+                items = category.value.sortedBy { it.name }
+            )
+        }
+    }
+
     companion object {
         private const val STORE_NAME = "CityStore"
     }
 }
+
+data class Category(
+    val name: String,
+    val items: List<City>
+)

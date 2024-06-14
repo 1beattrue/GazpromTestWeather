@@ -33,7 +33,7 @@ val Typography = Typography(
     */
 )
 
-val stickyHeaders = TextStyle(
+val stickyHeader = TextStyle(
     fontWeight = FontWeight.Medium,
     fontSize = 24.sp
 )
