@@ -33,30 +33,30 @@ val Typography = Typography(
     */
 )
 
-val stickyHeader = TextStyle(
+val stickyHeaderStyle = TextStyle(
     fontWeight = FontWeight.Medium,
     fontSize = 24.sp
 )
 
-val button = TextStyle(
+val buttonStyle = TextStyle(
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
     lineHeight = 20.sp
 )
 
-val error = TextStyle(
+val errorStyle = TextStyle(
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
     lineHeight = 20.sp
 )
 
-val title = TextStyle(
+val titleStyle = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 57.sp,
     lineHeight = 64.sp,
 )
 
-val subtitle = TextStyle(
+val subtitleStyle = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 32.sp,
     lineHeight = 40.sp,

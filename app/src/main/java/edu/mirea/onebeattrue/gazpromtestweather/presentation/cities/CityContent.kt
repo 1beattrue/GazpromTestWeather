@@ -1,6 +1,8 @@
 package edu.mirea.onebeattrue.gazpromtestweather.presentation.cities
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,13 +10,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,13 +27,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import edu.mirea.onebeattrue.gazpromtestweather.R
 import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.City
-import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.stickyHeader
+import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.buttonStyle
+import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.errorStyle
+import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.stickyHeaderStyle
 
 @Composable
 fun CityContent(
@@ -37,28 +48,53 @@ fun CityContent(
 ) {
     val state by component.model.collectAsState()
 
+    Box(
+        modifier = modifier.fillMaxSize()
+    ) {
+        when (val screenState = state.screenState) {
+            CityStore.State.ScreenState.Initial -> {}
 
-    when (val screenState = state.screenState) {
-        CityStore.State.ScreenState.Error -> {
-
-        }
-
-        CityStore.State.ScreenState.Initial -> {
-
-        }
-
-        is CityStore.State.ScreenState.Loaded -> {
-            ListWithHeaders(
-                modifier = modifier.fillMaxSize(),
-                cities = screenState.cities,
-                onClickCity = { city ->
-                    component.onCityItemClick(city)
+            CityStore.State.ScreenState.Error -> {
+                Column(
+                    modifier = Modifier.align(Alignment.Center),
+                    verticalArrangement = Arrangement.spacedBy(42.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(R.string.error),
+                        style = errorStyle,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center
+                    )
+                    Button(onClick = { component.onUpdateClick() }) {
+                        Text(
+                            text = stringResource(R.string.update),
+                            style = buttonStyle,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                 }
-            )
-        }
+            }
 
-        CityStore.State.ScreenState.Loading -> {
+            is CityStore.State.ScreenState.Loaded -> {
+                ListWithHeaders(
+                    modifier = modifier.fillMaxSize(),
+                    cities = screenState.cities,
+                    onClickCity = { city ->
+                        component.onCityItemClick(city)
+                    }
+                )
+            }
 
+            CityStore.State.ScreenState.Loading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .align(Alignment.Center),
+                )
+            }
         }
     }
 }
@@ -118,7 +154,7 @@ private fun Header(
         modifier = modifier
             .padding(16.dp),
         text = char,
-        style = stickyHeader,
+        style = stickyHeaderStyle,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
     )
