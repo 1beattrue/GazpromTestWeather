@@ -115,7 +115,7 @@ private fun CityCard(
                 modifier = modifier
             )
         } else {
-            Spacer(modifier = modifier.width(56.dp))
+            Spacer(modifier = modifier)
         }
         Card(
             modifier = Modifier
@@ -152,11 +152,16 @@ private fun Header(
 ) {
     Text(
         modifier = modifier
-            .padding(16.dp),
+            .padding(
+                start = 16.dp,
+                top = 16.dp,
+                bottom = 16.dp
+            ),
         text = char,
         style = stickyHeaderStyle,
         maxLines = 1,
-        overflow = TextOverflow.Ellipsis
+        overflow = TextOverflow.Ellipsis,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -212,11 +217,11 @@ private fun ListWithHeaders(
         }
         Header(
             modifier = if (moveStickyHeader) {
-                Modifier.offset {
+                commonModifier.offset {
                     IntOffset(0, -listState.firstVisibleItemScrollOffset)
                 }
             } else {
-                Modifier
+                commonModifier
             },
             char = cities[remember {
                 derivedStateOf { listState.firstVisibleItemIndex }
