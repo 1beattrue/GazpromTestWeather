@@ -1,10 +1,9 @@
 package edu.mirea.onebeattrue.gazpromtestweather.domain.entity
 
-import kotlinx.serialization.Serializable
+import java.util.Calendar
 
-@Serializable
 data class Weather(
-    val date: Long,
+    val date: Calendar,
     val title: String,
     val description: String,
     val iconUrl: String,

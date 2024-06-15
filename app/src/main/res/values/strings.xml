@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GazpromTestWeather</string>
-    <string name="error">Произошла ошибка</string>
+    <string name="error_cities">Произошла ошибка</string>
+    <string name="error_weather">Произошла ошибка загрузки погоды</string>
+    <string name="error_forecast">Произошла ошибка загрузки прогноза</string>
     <string name="update">Обновить</string>
 </resources>

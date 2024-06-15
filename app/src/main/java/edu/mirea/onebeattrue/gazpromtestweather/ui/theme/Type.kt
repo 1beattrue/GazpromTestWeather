@@ -56,6 +56,11 @@ val titleStyle = TextStyle(
     lineHeight = 64.sp,
 )
 
+val dateStyle = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 24.sp,
+)
+
 val subtitleStyle = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 32.sp,

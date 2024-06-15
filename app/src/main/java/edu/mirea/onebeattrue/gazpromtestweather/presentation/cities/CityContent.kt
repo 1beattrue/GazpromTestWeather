@@ -61,7 +61,7 @@ fun CityContent(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = stringResource(R.string.error),
+                        text = stringResource(R.string.error_cities),
                         style = errorStyle,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
