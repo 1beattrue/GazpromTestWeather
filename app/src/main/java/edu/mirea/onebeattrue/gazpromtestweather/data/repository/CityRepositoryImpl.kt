@@ -10,6 +10,9 @@ class CityRepositoryImpl @Inject constructor(
     private val cityApiService: CityApiService
 ) : CityRepository {
     override suspend fun getCities(): List<City> {
-        return cityApiService.getCities().toEntities().filter { it.name.isNotEmpty() }
+        return cityApiService.getCities()
+            .toEntities()
+            .filter { it.name.isNotEmpty() }
+            .sortedBy { it.name }
     }
 }
