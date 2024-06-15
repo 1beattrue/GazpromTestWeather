@@ -22,7 +22,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
@@ -80,11 +79,12 @@ private fun CityCard(
                 modifier = modifier
             )
         } else {
-            Spacer(modifier = modifier)
+            Spacer(modifier = modifier.width(56.dp))
         }
         Card(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
             ),
@@ -116,7 +116,6 @@ private fun Header(
 ) {
     Text(
         modifier = modifier
-            .fillMaxWidth()
             .padding(16.dp),
         text = char,
         style = stickyHeader,
@@ -124,6 +123,7 @@ private fun Header(
         overflow = TextOverflow.Ellipsis
     )
 }
+
 
 @Composable
 private fun ListWithHeaders(
@@ -154,10 +154,7 @@ private fun ListWithHeaders(
 
         LazyColumn(
             modifier = modifier,
-            contentPadding = PaddingValues(
-                bottom = 32.dp
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            contentPadding = PaddingValues(bottom = 32.dp),
             state = listState
         ) {
             itemsIndexed(
