@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class DefaultWeatherComponent @AssistedInject constructor(
     private val storeFactory: WeatherStoreFactory,
-    @Assisted("city") private val city: City,
+    @Assisted("city") override val city: City,
     @Assisted("onBackClicked") private val onBackClicked: () -> Unit,
     @Assisted("componentContext") componentContext: ComponentContext
 ) : WeatherComponent, ComponentContext by componentContext {
