@@ -16,24 +16,9 @@ fun WeatherDto.toEntity(): Weather = Weather(
 )
 
 fun ForecastDto.toEntity(): Forecast = Forecast(
-    upcoming = weatherList.map { it.toEntity() }.filterByUniqueDates()
+    upcoming = weatherList.map { it.toEntity() }
 )
 
 private fun Long.toCalendar() = Calendar.getInstance().apply {
     time = Date(this@toCalendar * 1000)
-}
-
-private fun List<Weather>.filterByUniqueDates(): List<Weather> {
-    val uniqueDates = mutableSetOf<Int>()
-    val result = mutableListOf<Weather>()
-
-    for (weather in this) {
-        val dayOfMonth = weather.date.get(Calendar.DAY_OF_MONTH)
-        if (dayOfMonth !in uniqueDates) {
-            uniqueDates.add(dayOfMonth)
-            result.add(weather)
-        }
-    }
-
-    return result
 }

@@ -20,12 +20,12 @@ val ComponentContext.componentScope
 
 fun Float.tempToFormattedString(): String = "${roundToInt()}°C"
 
-fun Calendar.formattedFullDate(): String {
-    val format = SimpleDateFormat("EEEE | d MMM y", Locale.getDefault())
+fun Calendar.formattedDateWithTime(): String {
+    val format = SimpleDateFormat("EEEE | d MMM y | HH:mm", Locale.getDefault())
     return format.format(time)
 }
 
-fun Calendar.formattedShortDate(): String {
-    val format = SimpleDateFormat("EEE", Locale.getDefault())
+fun Calendar.formattedDate(): String {
+    val format = SimpleDateFormat("EEEE | d MMM y", Locale.getDefault())
     return format.format(time)
 }

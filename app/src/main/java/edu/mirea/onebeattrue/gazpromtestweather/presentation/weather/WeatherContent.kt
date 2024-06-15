@@ -32,8 +32,8 @@ import edu.mirea.onebeattrue.gazpromtestweather.R
 import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.City
 import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.Forecast
 import edu.mirea.onebeattrue.gazpromtestweather.domain.entity.Weather
-import edu.mirea.onebeattrue.gazpromtestweather.presentation.extensions.formattedFullDate
-import edu.mirea.onebeattrue.gazpromtestweather.presentation.extensions.formattedShortDate
+import edu.mirea.onebeattrue.gazpromtestweather.presentation.extensions.formattedDate
+import edu.mirea.onebeattrue.gazpromtestweather.presentation.extensions.formattedDateWithTime
 import edu.mirea.onebeattrue.gazpromtestweather.presentation.extensions.tempToFormattedString
 import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.buttonStyle
 import edu.mirea.onebeattrue.gazpromtestweather.ui.theme.dateStyle
@@ -163,8 +163,8 @@ private fun WeatherCard(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = weather.date.formattedFullDate(),
-                style = dateStyle,
+                text = weather.date.formattedDate(),
+                style = MaterialTheme.typography.bodyLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -188,14 +188,24 @@ private fun ForecastCard(
     modifier: Modifier = Modifier,
     forecast: Forecast,
 ) {
-    LazyRow(
-        modifier = modifier
-            .padding(vertical = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    Column(
+        modifier = modifier.padding(vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(forecast.upcoming) { weather ->
-            WeatherItem(weather = weather)
+        Text(
+            text = stringResource(R.string.forecast),
+            style = subtitleStyle,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        LazyRow(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(forecast.upcoming) { weather ->
+                WeatherItem(weather = weather)
+            }
         }
     }
 }
@@ -215,20 +225,19 @@ private fun WeatherItem(
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
-                .widthIn(min = 132.dp),
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = weather.date.formattedShortDate(),
-                style = dateStyle,
+                text = weather.date.formattedDateWithTime(),
+                style = MaterialTheme.typography.bodyLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = weather.temp.tempToFormattedString(),
-                style = MaterialTheme.typography.bodyLarge,
+                style = subtitleStyle,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
