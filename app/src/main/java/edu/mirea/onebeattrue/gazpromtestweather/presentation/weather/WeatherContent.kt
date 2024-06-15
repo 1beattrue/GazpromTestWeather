@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -161,16 +162,16 @@ private fun WeatherCard(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            GlideImage(
-                modifier = Modifier.size(100.dp),
-                model = weather.iconUrl,
-                contentDescription = null
-            )
             Text(
                 text = weather.date.formattedFullDate(),
                 style = dateStyle,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
+            )
+            GlideImage(
+                modifier = Modifier.size(100.dp),
+                model = weather.iconUrl,
+                contentDescription = null
             )
             Text(
                 text = weather.description,
@@ -213,7 +214,9 @@ private fun WeatherItem(
         )
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .padding(16.dp)
+                .widthIn(min = 132.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -237,7 +240,7 @@ private fun WeatherItem(
             Text(
                 text = weather.description,
                 style = MaterialTheme.typography.bodyLarge,
-                maxLines = 2,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         }
